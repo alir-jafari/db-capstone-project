@@ -1,0 +1,6 @@
+SELECT mi.Name , m.Cuisine
+from menuitems as mi left join menus as m on m.ItemID = mi.ItemID
+where m.MenuID = ANY
+  (SELECT MenuID
+  FROM orders
+  WHERE Quantity > 2);

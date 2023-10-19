@@ -1,0 +1,10 @@
+SELECT c.CustomerID , concat(c.FirstName,' ',c.LastName) as full_name,
+b.BookingID,b.TableNo,b.BookingSlot ,e.EmployeeID,e.Name,e.Role,
+o.OrderID,o.MenuID,o.BillAmount,o.Quantity,
+m.MenuID,m.Cuisine,mi.ItemID,mi.Name,mi.Type,mi.Price
+from customers as c left join bookings as b on b.CustomerID = c.CustomerID
+LEFT JOIN employees as e on b.EmployeeID = e.EmployeeID 
+left join orders as o on o.BookingID = b.BookingID 
+left join menus as m on o.MenuID = m.MenuID 
+left join menuitems as mi on mi.ItemID = m.ItemID
+order by o.BillAmount
