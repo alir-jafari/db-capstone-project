@@ -1,0 +1,15 @@
+DELIMITER //
+
+CREATE PROCEDURE CancelOrder(
+	IN OrderIDInput INT,
+    OUT Description VARCHAR(255)
+)
+BEGIN
+	DELETE  
+ 	FROM orders
+	WHERE OrderID = OrderIDInput;
+    select concat('Order',' ',OrderIDInput,' is Canceled.')
+    INTO Description;
+END //
+
+DELIMITER ;

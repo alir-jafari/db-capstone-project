@@ -1,0 +1,3 @@
+PREPARE GetOrderDetail FROM 'SELECT OrderID,Quantity,BillAmount 
+from orders as o inner join bookings as b on b.BookingID = o.BookingID 
+inner join customers as c on c.CustomerID = b.CustomerID   where b.CustomerID = ? ';
