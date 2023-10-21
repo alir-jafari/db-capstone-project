@@ -1,0 +1,22 @@
+DELIMITER //
+
+CREATE PROCEDURE CheckBooking(
+	IN BookingDate Date,
+    IN TableNumber INT,
+    OUT TableStatus VARCHAR(255)
+)
+BEGIN
+	DECLARE BookingCount INT;
+    SELECT count(BookingID) INTO BookingCount 
+    FROM bookings
+    WHERE Date(BookingSlot) = BookingDate and TableNo = TableNumber;
+    
+    IF (BookingCount > 0) THEN 
+     	SELECT concat('Table',' ',TableNumber,' is already Booked.') INTO TableStatus; 
+    ELSE 
+    	SELECT  concat('Table',' ',TableNumber,' is free now.') INTO TableStatus; 
+    END IF;
+   
+END //
+
+DELIMITER ;

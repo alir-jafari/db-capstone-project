@@ -1,0 +1,30 @@
+DELIMITER //
+
+CREATE PROCEDURE AddValidBooking(
+	IN BookingDate Date,
+    IN TableNumber INT,
+    IN CustomerIDInput INT,
+    OUT TableStatus VARCHAR(255)
+)
+BEGIN
+	DECLARE BookingCount INT;
+    
+    
+    SELECT count(BookingID) INTO BookingCount 
+    FROM bookings
+    WHERE Date(BookingSlot) = BookingDate and TableNo = TableNumber;
+    
+	START TRANSACTION;
+    INSERT into bookings(TableNo,BookingSlot,EmployeeID,CustomerID) VALUES(TableNumber,BookingDate,6,CustomerIDInput);
+
+    IF (BookingCount > 0) THEN 
+     	SELECT concat('Table',' ',TableNumber,' is already Booked - booking canceled') INTO TableStatus; 
+        ROLLBACK;
+    ELSE 
+    	SELECT  concat('Table',' ',TableNumber,' is booked by customer id of ',CustomerIDInput) INTO TableStatus; 
+        COMMIT;
+    END IF;
+   
+END //
+
+DELIMITER ;
