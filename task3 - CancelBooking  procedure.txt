@@ -1,0 +1,13 @@
+DELIMITER //
+CREATE PROCEDURE CancelBooking(
+    IN BookIDInput INT,
+    OUT TableStatus VARCHAR(255)
+)
+BEGIN
+	DECLARE BookingCount INT;
+    DELETE FROM bookings
+    where BookingID = BookIDInput;
+    
+    SELECT concat('Booking ',BookIDInput,' was canceled successfully') INTO TableStatus;    
+END //
+DELIMITER ;

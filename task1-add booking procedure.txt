@@ -1,0 +1,13 @@
+DELIMITER //
+CREATE PROCEDURE AddBooking(
+	IN BookingDate Date,
+    IN TableNumber INT,
+    IN CustomerIDInput INT,
+    OUT TableStatus VARCHAR(255)
+)
+BEGIN
+	DECLARE BookingCount INT;
+    INSERT into bookings(TableNo,BookingSlot,EmployeeID,CustomerID) VALUES(TableNumber,BookingDate,6,CustomerIDInput);
+    SELECT concat('New booking was addedd successfully') INTO TableStatus;    
+END //
+DELIMITER ;

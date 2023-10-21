@@ -1,0 +1,15 @@
+DELIMITER //
+CREATE PROCEDURE UpdateBooking(
+	IN BookingDate Date,
+    IN BookIDInput INT,
+    OUT TableStatus VARCHAR(255)
+)
+BEGIN
+	DECLARE BookingCount INT;
+    UPDATE bookings
+    set  BookingSlot = BookingDate
+    where BookingID = BookIDInput;
+    
+    SELECT concat('Booking ',BookIDInput,' was updated successfully') INTO TableStatus;    
+END //
+DELIMITER ;
